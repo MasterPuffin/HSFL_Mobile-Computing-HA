@@ -67,7 +67,6 @@ public class Controller extends Activity {
             model.spaceShip.move();
             model.spaceShip.rotate(2);
 
-            model.spaceShip.fire();
 
             // model.spaceShip.collision(model.arAsteroids);
 
@@ -105,7 +104,18 @@ public class Controller extends Activity {
 
         setContentView(screen);     // mal nicht aus den Ressourcen generiert
 
-
+        //OnTouchListener, für schiessen
+        screen.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                Log.d(TAG, "onTouch()");
+                if(motionEvent.getAction() == MotionEvent.ACTION_DOWN){
+                    model.spaceShip.fire();
+                    return true;
+                }
+                return false;
+            }
+        });
         //Gyro Sensor
         SensorManager sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         Sensor rotationVectorSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
