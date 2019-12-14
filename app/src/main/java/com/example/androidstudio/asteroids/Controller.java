@@ -112,7 +112,7 @@ public class Controller extends Activity {
                 Log.d(TAG,"Height:" + view.getHeight() + "Width:" + view.getWidth());
                 Log.d(TAG,"X-Position" + motionEvent.getX() + "Y-Position" + motionEvent.getY());
                 if(motionEvent.getAction() == MotionEvent.ACTION_DOWN){
-                    if(motionEvent.getX() < 600) {
+                    if(motionEvent.getX() < (view.getWidth()/2)) {
                         //TODO: hier Methode für Beschleunigung aufrufen
                     } else {
                         model.spaceShip.fire();
