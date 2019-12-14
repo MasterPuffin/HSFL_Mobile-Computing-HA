@@ -28,6 +28,10 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.VectorDrawable;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -100,6 +104,43 @@ public class Controller extends Activity {
         screen.setModel(model);
 
         setContentView(screen);     // mal nicht aus den Ressourcen generiert
+
+
+        //Gyro Sensor
+        SensorManager sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        Sensor rotationVectorSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
+
+        // Create a listener
+        SensorEventListener rvListener = new SensorEventListener() {
+            @Override
+            public void onSensorChanged(SensorEvent sensorEvent) {
+                float[] rotationMatrix = new float[16];
+                SensorManager.getRotationMatrixFromVector(rotationMatrix, sensorEvent.values);
+
+                // Remap coordinate system
+                float[] remappedRotationMatrix = new float[16];
+                SensorManager.remapCoordinateSystem(rotationMatrix,
+                        SensorManager.AXIS_X,
+                        SensorManager.AXIS_Z,
+                        remappedRotationMatrix);
+
+                // Convert to orientations
+                float[] orientations = new float[3];
+                SensorManager.getOrientation(remappedRotationMatrix, orientations);
+
+                for(int i = 0; i < 3; i++) {
+                    orientations[i] = (float)(Math.toDegrees(orientations[i]));
+                }
+                Log.d("dbg",Float.toString(orientations[0]));
+            }
+
+            @Override
+            public void onAccuracyChanged(Sensor sensor, int i) {
+            }
+        };
+
+        // Register it
+        sensorManager.registerListener(rvListener, rotationVectorSensor, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     @Override

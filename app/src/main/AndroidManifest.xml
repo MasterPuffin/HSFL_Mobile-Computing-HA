@@ -21,4 +21,8 @@
         </activity>
     </application>
 
+    <uses-feature
+        android:name="android.hardware.sensor.gyroscope"
+        android:required="true" />
+
 </manifest>
