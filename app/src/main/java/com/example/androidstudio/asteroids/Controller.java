@@ -113,7 +113,7 @@ public class Controller extends Activity {
                 Log.d(TAG,"X-Position" + motionEvent.getX() + "Y-Position" + motionEvent.getY());
                 if(motionEvent.getAction() == MotionEvent.ACTION_DOWN){
                     if(motionEvent.getX() < 600) {
-                        //TODO: hier Code für beschleunigung einfügen
+                        //TODO: hier Methode für Beschleunigung aufrufen
                     } else {
                         model.spaceShip.fire();
                     }
