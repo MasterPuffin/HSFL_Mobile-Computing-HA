@@ -104,13 +104,19 @@ public class Controller extends Activity {
 
         setContentView(screen);     // mal nicht aus den Ressourcen generiert
 
-        //OnTouchListener, für schiessen
+        //OnTouchListener, für schiessen bzw beschleunigen
         screen.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 Log.d(TAG, "onTouch()");
+                Log.d(TAG,"Height:" + view.getHeight() + "Width:" + view.getWidth());
+                Log.d(TAG,"X-Position" + motionEvent.getX() + "Y-Position" + motionEvent.getY());
                 if(motionEvent.getAction() == MotionEvent.ACTION_DOWN){
-                    model.spaceShip.fire();
+                    if(motionEvent.getX() < 600) {
+                        //TODO: hier Code für beschleunigung einfügen
+                    } else {
+                        model.spaceShip.fire();
+                    }
                     return true;
                 }
                 return false;
