@@ -27,6 +27,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.RotateDrawable;
 import android.graphics.drawable.VectorDrawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -65,7 +66,7 @@ public class Controller extends Activity {
             // Beispiele fuer Bewegungen, dies wird spaeter von Sensoren
             //      gesteuert
             model.spaceShip.move();
-            model.spaceShip.rotate(2);
+
 
 
             // model.spaceShip.collision(model.arAsteroids);
@@ -74,7 +75,7 @@ public class Controller extends Activity {
             {
                 bullet.move();
             }
-
+            model.spaceShip.rotate(1f);
             model.asteroid.move();
 
             if( model.asteroid.collision(model.spaceShip) ) {
@@ -172,9 +173,9 @@ public class Controller extends Activity {
 
             // Achtung: beim Laden wird u.U. die Bitmap umskaliert -> fixen ##
 
-            // Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.spaceship25_32);
-            Bitmap bitmap = getBitmapFromVectorDrawable(this, R.drawable.spaceship_32_25dp);
+            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.spaceship_32_25dp);
             SpaceShip.setClassAttributes(bitmap);
+
             bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.bullet5_5);
             Bullet.setClassAttributes(bitmap);
             //## Bitmap fuer Asteroid fehlt noch

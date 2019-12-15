@@ -44,6 +44,7 @@ public class Model {
     public void init() {
         spaceShip = new SpaceShip(screenWidth/2, screenHeight/2, this);
         asteroid = new Asteroid(500f, 55f, 0f, -50f, this);
+
     }
 
     public void add(Bullet bullet) {  // wird von SpaceShip gefuellt -> ## Listener ?
