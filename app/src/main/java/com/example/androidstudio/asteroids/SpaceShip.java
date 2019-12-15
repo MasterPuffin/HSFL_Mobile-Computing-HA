@@ -5,9 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.util.Log;
 
-/**
- * Created by androidstudio on 18.01.16.
- */
+
 
 public class SpaceShip extends Moveable{
 

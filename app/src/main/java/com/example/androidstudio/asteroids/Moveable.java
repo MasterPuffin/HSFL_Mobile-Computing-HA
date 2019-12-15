@@ -12,9 +12,7 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.RotateDrawable;
 import android.util.Log;
 
-/**
- * Created by androidstudio on 14.01.16.
- */
+
 
 public class Moveable extends Drawable {
 

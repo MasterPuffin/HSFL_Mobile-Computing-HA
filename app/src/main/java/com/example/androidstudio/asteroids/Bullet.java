@@ -5,9 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.RectF;
 
-/**
- * Created by androidstudio on 15.01.16.
- */
+
 public class Bullet extends Moveable{
 
     private static final String TAG = "fhflBullet";

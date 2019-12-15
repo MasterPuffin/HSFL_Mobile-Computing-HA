@@ -8,11 +8,6 @@ import android.graphics.Paint;
 import android.view.MotionEvent;
 import android.view.View;
 
-/**
- * der verfuegbare Screen wird auf eine Hoehe von 1000 gemappt. Die Breite ergibt sich dann
- *   entsprechend.
- *
- */
 
 public class Screen extends View {
 

@@ -6,10 +6,8 @@ import android.widget.Button;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Random;
 
-/**
- * Created by androidstudio on 14.01.16.
- */
 
 public class Model {
 
@@ -20,6 +18,7 @@ public class Model {
     public Bullet bull1;
     public Bullet bull2;
     public Asteroid asteroid;
+    Random rdm = new Random();
 
     public static final float ticDurationS = 0.01f;
 
@@ -45,6 +44,10 @@ public class Model {
         spaceShip = new SpaceShip(screenWidth/2, screenHeight/2, this);
         asteroid = new Asteroid(500f, 55f, 0f, -50f, this);
 
+    }
+
+    public void spawnAsteroid(){
+        asteroid = new Asteroid(rdm.nextInt(screenWidth), rdm.nextInt(screenHeight), screenHeight/4, -90f, this);
     }
 
     public void add(Bullet bullet) {  // wird von SpaceShip gefuellt -> ## Listener ?

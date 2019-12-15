@@ -3,9 +3,6 @@ package com.example.androidstudio.asteroids;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
-/**
- * Created by androidstudio on 16.01.16.
- */
 public class Asteroid extends Moveable{
 
     private static Bitmap bitmap;

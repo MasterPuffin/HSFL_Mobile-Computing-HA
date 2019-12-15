@@ -1,26 +1,5 @@
 package com.example.androidstudio.asteroids;
 
-/**
- * Kleine Demo fuer eine Spiele-Konzept.
- *  An MVC-Pattern angelehnt.
- *
- *  !!!!!! Die App ist im Entwurfssatdium und zeigt erstmal nur die
- *  prinzipielle Klassenstruktur und das Timing.   !!!!!!!
- *
- * Android-Techniken:
- *  - onShowWindow-Ersatz: onWindowFocusChanged()
- *
- * Bem.:
- *   die sinnvollen RotateDrawable koennen erst ab API-Level 21 eingesetzt werden.
- *   logische ScreenHeight ist auf 1000 festgelegt, log. Width ergibt sich daraus
- *
- * History:
- *  03.05.2016  tas     Start
- *  05.12.2016  tas     Kommentierung ergaenzt
- *  22.09.2017  tas     auf API25 umgestellt
- *
- */
-
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -63,8 +42,6 @@ public class Controller extends Activity {
 
             model.deleteDead();
 
-            // Beispiele fuer Bewegungen, dies wird spaeter von Sensoren
-            //      gesteuert
             model.spaceShip.move();
 
 
@@ -75,18 +52,23 @@ public class Controller extends Activity {
             {
                 bullet.move();
             }
+            // Bullet trifft einen Asteroid
+            if(model.bullet.collision(model.asteroid)){
+                Log.v(TAG, "Bullet collides with Asteroid");
+                model.spawnAsteroid();
+                //Bullet remove?
+            }
             model.spaceShip.rotate(1f);
             model.asteroid.move();
 
+            //Asteroid kollidiert mit dem Spaceship
             if( model.asteroid.collision(model.spaceShip) ) {
-                Log.v(TAG, "collision() ------------------------------------------------------ ");
+                Log.v(TAG, "Asteroid collides with Spaceship");
+                model.init();
             }
 
             screen.invalidate();
 
-//            model.bullet.move();
-//            model.bull1.move();
-//            model.bull2.move();
         }
 
         public void onFinish() {
