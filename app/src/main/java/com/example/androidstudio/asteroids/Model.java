@@ -42,7 +42,7 @@ public class Model {
 
     public void init() {
         spaceShip = new SpaceShip(screenWidth/2, screenHeight/2, this);
-        asteroid = new Asteroid(500f, 55f, 0f, -50f, this);
+        asteroid = new Asteroid(500f, 55f, -90f, -50f, this);
 
     }
 

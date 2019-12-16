@@ -44,13 +44,14 @@ public class Controller extends Activity {
             for (Bullet bullet: model.arBullets)
             {
                 bullet.move();
+                // Bullet trifft einen Asteroid
+                if(bullet.collision(model.asteroid)){
+                    Log.v(TAG, "Bullet collides with Asteroid");
+                    model.spawnAsteroid();
+                    //Bullet remove?
+                }
             }
-            // Bullet trifft einen Asteroid
-            if(model.bullet != null && model.bullet.collision(model.asteroid)){
-                Log.v(TAG, "Bullet collides with Asteroid");
-                model.spawnAsteroid();
-                //Bullet remove?
-            }
+
             model.spaceShip.rotate(1f);
             model.asteroid.move();
 
