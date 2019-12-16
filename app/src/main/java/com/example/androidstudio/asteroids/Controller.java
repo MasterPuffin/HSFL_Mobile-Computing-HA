@@ -26,39 +26,38 @@ public class Controller extends Activity {
     private static final String TAG = "hsflController";
 
     private Screen screen;
-
+//    private double neuerAsteroid =0;
     public Model model;
 
     private CountDownTimer timer = new CountDownTimer(Long.MAX_VALUE, (int)(1000.0*Model.ticDurationS)) {
         public void onTick(long millisUntilFinished) {
-            // Log.v("TAG", "timer.onTick()");
-
             model.deleteDead();
-
-            model.spaceShip.move();
-
-
-
-            // model.spaceShip.collision(model.arAsteroids);
-
+            model.raumschiff.move();
             for (Bullet bullet: model.arBullets)
             {
                 bullet.move();
                 // Bullet trifft einen Asteroid
                 if(bullet.collision(model.asteroid)){
                     Log.v(TAG, "Bullet collides with Asteroid");
+                    screen.score++;
                     model.spawnAsteroid();
                     //Bullet remove?
                 }
             }
-
-            model.spaceShip.rotate(1f);
+            /*neuerAsteroid=neuerAsteroid+0.01;
+            if(neuerAsteroid>=5){
+                model.newAsteroid();
+                neuerAsteroid=0;
+            }
+            System.out.println(neuerAsteroid);*/
+            model.raumschiff.rotate(1f);
             model.asteroid.move();
 
             //Asteroid kollidiert mit dem Spaceship
-            if( model.asteroid.collision(model.spaceShip) ) {
+            if( model.asteroid.collision(model.raumschiff) ) {
                 Log.v(TAG, "Asteroid collides with Spaceship");
                 model.init();
+                screen.score = 0;
             }
 
             screen.invalidate();
@@ -66,7 +65,7 @@ public class Controller extends Activity {
         }
 
         public void onFinish() {
-            //Log.v(TAG, "timer.onFinish()");
+
         }
     };
 
@@ -92,7 +91,7 @@ public class Controller extends Activity {
                     if(motionEvent.getX() < (view.getWidth()/2)) {
                         //TODO: hier Methode für Beschleunigung aufrufen
                     } else {
-                        model.spaceShip.fire();
+                        model.raumschiff.fire();
                     }
                     return true;
                 }
@@ -138,24 +137,24 @@ public class Controller extends Activity {
 
     @Override
     public void onWindowFocusChanged (boolean hasFocus) {  // View ist aufgebaut
-        if (model.screenWidth == 0) {   // also noch nichts initialisiert
+        if (model.width == 0) {   // also noch nichts initialisiert
 
-            model.screenWidth = (int) ((Model.screenHeight/(float)screen.getHeight())*(float)screen.getWidth());
+            model.width = (int) ((Model.height /(float)screen.getHeight())*(float)screen.getWidth());
             Log.v(TAG, "timer.onTick(): phys. height: " + screen.getHeight() + "  phys. width: " + screen.getWidth());
-            Log.v(TAG, "timer.onTick(): log. height: " + Model.screenHeight + "  log. width: " + model.screenWidth);
+            Log.v(TAG, "timer.onTick(): log. height: " + Model.height + "  log. width: " + model.width);
 
             // Initialisierung der Klassenattribute
-            Moveable.setClassAttributes(Model.ticDurationS, model.screenWidth, Model.screenHeight);
+            Moveable.setClassAttributes(Model.ticDurationS, model.width, Model.height);
 
             // Achtung: beim Laden wird u.U. die Bitmap umskaliert -> fixen ##
 
             SpaceShip.setClassAttributes(BitmapFactory.decodeResource(getResources(), R.drawable.spaceship_32_25));
 
             Bullet.setClassAttributes(BitmapFactory.decodeResource(getResources(), R.drawable.bullet5_5));
-            //## Bitmap fuer Asteroid fehlt noch
+
             Asteroid.setClassAttributes(BitmapFactory.decodeResource(getResources(), R.drawable.asteroid25_32));
 
-            // jetzt kann es losgehen
+
             model.init();
             timer.start();
         }
@@ -190,8 +189,7 @@ public class Controller extends Activity {
             drawable = (DrawableCompat.wrap(drawable)).mutate();
         }
 
-        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
-                drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
         drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
         drawable.draw(canvas);

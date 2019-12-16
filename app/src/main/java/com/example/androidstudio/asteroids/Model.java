@@ -1,9 +1,5 @@
 package com.example.androidstudio.asteroids;
 
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
-import android.widget.Button;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
@@ -11,44 +7,42 @@ import java.util.Random;
 
 public class Model {
 
-    // private Resources resources;
 
-    public SpaceShip spaceShip;
-    public Bullet bullet;
-    public Bullet bull1;
-    public Bullet bull2;
+
+    public SpaceShip raumschiff;
     public Asteroid asteroid;
     Random rdm = new Random();
 
     public static final float ticDurationS = 0.01f;
 
-    // logische screen Werte
-    public static final int screenHeight = 1000;  // logische Hoehe, die ist fix !!!, hierauf wird intern gemappt
-    public int screenWidth = 0;            // ergibt sich aus dem AspectRatio des aktuellen canvas
+
+    public static final int height = 1000;
+    public int width = 0;
 
     public ArrayList<Bullet> arBullets = new ArrayList<Bullet>();
     public ArrayList<Asteroid> arAsteroids = new ArrayList<Asteroid>();
 
     public Model() {
 
-        // resources = res;
-
-//        bullet = new Bullet(200f + 55f, 100f + 50f, 0f, 10f, 400, this);
-//        bullet.collision(bullet);
-//        bull1 = new Bullet(5f, 995f, 0f, 10f, 400, this);
-//        bull2 = new Bullet(screenWidth - 5f, 995f, 0f, -10f, 400, this);
-
     }
 
     public void init() {
-        spaceShip = new SpaceShip(screenWidth/2, screenHeight/2, this);
+        raumschiff = new SpaceShip(width /2, height /2, this);
         asteroid = new Asteroid(500f, 55f, -90f, -50f, this);
 
     }
 
     public void spawnAsteroid(){
-        asteroid = new Asteroid(rdm.nextInt(screenWidth), rdm.nextInt(screenHeight), screenHeight/4, -90f, this);
+        asteroid=new Asteroid(rdm.nextInt(width), rdm.nextInt(height), height /4, -90f, this);
+
     }
+    /*public void newAsteroid(){
+            Asteroid as = new Asteroid(rdm.nextInt(width), rdm.nextInt(height), height /4, -90f, this);
+            arAsteroids.add(as);
+            as.move();
+            System.out.println("ok");
+
+        ;}*/
 
     public void add(Bullet bullet) {  // wird von SpaceShip gefuellt -> ## Listener ?
         arBullets.add(bullet);

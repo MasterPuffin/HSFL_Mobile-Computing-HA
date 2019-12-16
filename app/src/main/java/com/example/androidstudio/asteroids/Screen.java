@@ -5,16 +5,16 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.view.MotionEvent;
 import android.view.View;
 
 
 public class Screen extends View {
 
     Model model;
-
+    public int score;
     // nur zum Test##:
     Paint paint = new Paint();
+    Paint pin= new Paint();
 
     public Screen(Context context) {
 
@@ -23,7 +23,8 @@ public class Screen extends View {
 
         paint.setStyle(Paint.Style.FILL);
         paint.setColor(Color.YELLOW);
-
+        pin.setStyle(Paint.Style.FILL);
+        pin.setColor(Color.WHITE);
      }
 
     public void setModel(Model m) {
@@ -34,25 +35,24 @@ public class Screen extends View {
     @Override
     protected void onDraw(Canvas canvas) {
 
-        // Skalierung auf 1000 virtuelle Pixel Hoehe
+
         Matrix matCanvas = new Matrix();
         float yFac = (float)getHeight()/1000f;
         matCanvas.setScale(yFac, yFac);
         canvas.concat(matCanvas);
 
-        model.spaceShip.draw(canvas);
-        // model.bullet.draw(canvas);
-        // model.bull1.draw(canvas);
-        // model.bull2.draw(canvas);
+        pin.setTextSize(100);
+        canvas.drawText(Integer.toString(score), getHeight()/6, getWidth()/4, pin);
+        model.raumschiff.draw(canvas);
 
-        // ## zur Zeit gibts noch keine Asteroids-Bitmap deswegen
-        //      erscheint auch hier ein SpaceShip
         model.asteroid.draw(canvas);
 
         for (Bullet bullet: model.arBullets)
         {
             bullet.draw(canvas);
         }
-
+        for (Asteroid asteroid: model.arAsteroids){
+            asteroid.draw(canvas);
+        }
         }
 }

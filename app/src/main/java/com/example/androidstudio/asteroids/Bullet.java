@@ -34,9 +34,4 @@ public class Bullet extends Moveable{
         }
     }
 
- //   @Override
-//    public void draw (Canvas canvas){
-//        canvas.drawBitmap(bitmap, x-centerX, y-centerY, null);
-//    }
-
 }

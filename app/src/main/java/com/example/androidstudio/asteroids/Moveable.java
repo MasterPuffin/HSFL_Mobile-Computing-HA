@@ -17,33 +17,23 @@ import android.util.Log;
 public class Moveable extends Drawable {
 
     private static final String TAG = "hsflMoveable";
-    private static float stTicDurationS;        // via setClassAttributes()
-    private static int stScreenWidth;           //            "
-    private static int stScreenHeight;          //            "
+    private static float stTicDurationS;
+    private static int stScreenWidth;
+    private static int stScreenHeight;
 
     private Bitmap bitmap;
     protected float centerX, centerY;
 
     protected float x = 0f;
     protected float y = 0f;
-    private float xSpeed = 0f;         // speed = pixel/s
+    private float xSpeed = 0f;
     private float ySpeed = 0f;
     protected boolean isAlive = true;
 
     protected Paint paint = new Paint();
 
-    /**
-     *
-     * @param xStart     in Pixel
-     * @param yStart     in Pixel, Orientierung: nach unten
-     * @param direction  in Grad, math. Richtung, da y nach unten zeigt, folgt: im Uhrzeigersinn
-     * @param speed      in Pixel / s
-     */
     public Moveable(float xStart, float yStart, float direction, float speed, Bitmap bitmap) {
 
-        // Test ob die Klassenattribute initialisiert sind:
-        float test = stTicDurationS;     // sollte eine exception liefern, falls die Initialisierung
-                                         // via setClassAttributes() nicht erfolgte
         x = xStart;
         y = yStart;
 

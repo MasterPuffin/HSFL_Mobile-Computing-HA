@@ -15,7 +15,7 @@ public class SpaceShip extends Moveable{
 
     private Model model;
 
-    private float direction;  // in degree
+    private float direction;
 
     public SpaceShip(float xStart, float yStart, Model model) {
         super(xStart, yStart, 0f, 0f, SpaceShip.bitmap);
@@ -27,7 +27,6 @@ public class SpaceShip extends Moveable{
 
         SpaceShip.bitmap = bitmap;
 
-        //Log.i(TAG, "setClassAttributes(): " + bitmap.getWidth() + "  " + bitmap.getHeight() );
     }
 
     public void rotate(float diffAngle) {
@@ -35,17 +34,9 @@ public class SpaceShip extends Moveable{
     }
 
     public void fire(){
-        Bullet bullet = new Bullet(x + centerX, y + centerY, direction, 200, 3);
+        Bullet bullet = new Bullet(x + centerX, y + centerY, direction, 800, 1f);
         model.add(bullet);
     }
-
-    // ## deprecated
-//        bmRotatedSpaceShip.eraseColor(Color.TRANSPARENT);
-//
-//        Canvas tempCanvas = new Canvas(bmRotatedSpaceShip);
-//        tempCanvas.rotate(direction, bmSpaceShip.getWidth()/2, bmSpaceShip.getHeight()/2);
-//        tempCanvas.drawBitmap(bmSpaceShip, 0, 0, null);
-//    }
 
     public void move() {
         super.move();
