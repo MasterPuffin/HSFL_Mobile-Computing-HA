@@ -6,27 +6,20 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.RotateDrawable;
-import android.graphics.drawable.VectorDrawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.CountDownTimer;
-import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-
-import java.util.Iterator;
 
 public class Controller extends Activity {
 
@@ -53,7 +46,7 @@ public class Controller extends Activity {
                 bullet.move();
             }
             // Bullet trifft einen Asteroid
-            if(model.bullet.collision(model.asteroid)){
+            if(model.bullet != null && model.bullet.collision(model.asteroid)){
                 Log.v(TAG, "Bullet collides with Asteroid");
                 model.spawnAsteroid();
                 //Bullet remove?
@@ -155,14 +148,11 @@ public class Controller extends Activity {
 
             // Achtung: beim Laden wird u.U. die Bitmap umskaliert -> fixen ##
 
-            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.spaceship_32_25dp);
-            SpaceShip.setClassAttributes(bitmap);
+            SpaceShip.setClassAttributes(BitmapFactory.decodeResource(getResources(), R.drawable.spaceship_32_25));
 
-            bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.bullet5_5);
-            Bullet.setClassAttributes(bitmap);
+            Bullet.setClassAttributes(BitmapFactory.decodeResource(getResources(), R.drawable.bullet5_5));
             //## Bitmap fuer Asteroid fehlt noch
-            bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.spaceship25_32);  //##
-            Asteroid.setClassAttributes(bitmap);
+            Asteroid.setClassAttributes(BitmapFactory.decodeResource(getResources(), R.drawable.asteroid25_32));
 
             // jetzt kann es losgehen
             model.init();

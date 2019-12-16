@@ -27,7 +27,7 @@ public class SpaceShip extends Moveable{
 
         SpaceShip.bitmap = bitmap;
 
-        Log.i(TAG, "setClassAttributes(): " + bitmap.getWidth() + "  " + bitmap.getHeight() );
+        //Log.i(TAG, "setClassAttributes(): " + bitmap.getWidth() + "  " + bitmap.getHeight() );
     }
 
     public void rotate(float diffAngle) {
