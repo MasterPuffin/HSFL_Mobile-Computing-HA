@@ -10,6 +10,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.CountDownTimer;
 import android.support.v4.content.ContextCompat;
@@ -25,11 +26,20 @@ public class Controller extends Activity {
 
     private static final String TAG = "hsflController";
 
+
+    static MediaPlayer spaceshipExplosion;
+    static MediaPlayer asteroidExplosion;
+
+    Context context =this;
+
+
+
     private Screen screen;
 //    private double neuerAsteroid =0;
     public Model model;
 
     private CountDownTimer timer = new CountDownTimer(Long.MAX_VALUE, (int)(1000.0*Model.ticDurationS)) {
+
         public void onTick(long millisUntilFinished) {
             model.deleteDead();
             model.raumschiff.move();
@@ -39,8 +49,11 @@ public class Controller extends Activity {
                 // Bullet trifft einen Asteroid
                 if(bullet.collision(model.asteroid)){
                     Log.v(TAG, "Bullet collides with Asteroid");
+                     asteroidExplosion = MediaPlayer.create(context, R.raw.explosion_asteroid);
+                    asteroidExplosion.start();
                     screen.score++;
                     model.spawnAsteroid();
+
                     //Bullet remove?
                 }
             }
@@ -56,7 +69,9 @@ public class Controller extends Activity {
             //Asteroid kollidiert mit dem Spaceship
             if( model.asteroid.collision(model.raumschiff) ) {
                 Log.v(TAG, "Asteroid collides with Spaceship");
+                spaceshipExplosion = MediaPlayer.create(context, R.raw.explosion);
                 model.init();
+                spaceshipExplosion.start();
                 screen.score = 0;
             }
 
@@ -72,6 +87,9 @@ public class Controller extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+        final MediaPlayer laserShot = MediaPlayer.create(this, R.raw.lasershot);
 
         model = new Model();
 
@@ -92,6 +110,7 @@ public class Controller extends Activity {
                         //TODO: hier Methode für Beschleunigung aufrufen
                     } else {
                         model.raumschiff.fire();
+                        laserShot.start();
                     }
                     return true;
                 }
