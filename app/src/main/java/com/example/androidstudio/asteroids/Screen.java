@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.view.View;
+import android.widget.Button;
 
 
 public class Screen extends View {
@@ -13,6 +14,7 @@ public class Screen extends View {
     Model model;
     public int score;
     // nur zum Test##:
+
     Paint paint = new Paint();
     Paint pin= new Paint();
 

@@ -38,8 +38,11 @@ public class SpaceShip extends Moveable{
         model.add(bullet);
     }
 
-    public void move() {
+    public void move(float bewstarke) {
+
         super.move();
+        xSpeed = (float) Math.cos((double) direction*Math.PI/180f)*bewstarke;
+        ySpeed = (float) Math.sin((double) direction*Math.PI/180f)*bewstarke;
     }
 
     @Override

@@ -26,8 +26,8 @@ public class Moveable extends Drawable {
 
     protected float x = 0f;
     protected float y = 0f;
-    private float xSpeed = 0f;
-    private float ySpeed = 0f;
+    public float xSpeed = 0f;
+    public float ySpeed = 0f;
     protected boolean isAlive = true;
 
     protected Paint paint = new Paint();

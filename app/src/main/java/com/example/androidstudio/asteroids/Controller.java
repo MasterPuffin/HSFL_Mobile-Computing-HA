@@ -22,6 +22,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 
 public class Controller extends Activity {
 
@@ -40,7 +41,8 @@ public class Controller extends Activity {
     float rotationAngle = 1f;
     //Legt die Rotationsgeschwindigkeit fest
     final static int rotationSensitivity = 20;
-
+    public boolean gedrueckt;
+    public float bewstaerke;
 
     private Screen screen;
 //    private double neuerAsteroid =0;
@@ -50,7 +52,7 @@ public class Controller extends Activity {
 
         public void onTick(long millisUntilFinished) {
             model.deleteDead();
-            model.raumschiff.move();
+
             for (Bullet bullet: model.arBullets)
             {
                 bullet.move();
@@ -62,26 +64,46 @@ public class Controller extends Activity {
                     screen.score++;
                     model.spawnAsteroid();
 
+
+
+
                     //Bullet remove?
                 }
             }
+            for (Asteroid ast: model.arAsteroids)
+            {
+                ast.move();
+                Log.v(TAG, "Asteroid collides with Spaceship");
+                spaceshipExplosion = MediaPlayer.create(context, R.raw.explosion);
+                model.init();
+                spaceshipExplosion.start();
+                screen.score = 0;
+
+                    //Bullet remove?
+                }
+
             /*neuerAsteroid=neuerAsteroid+0.01;
             if(neuerAsteroid>=5){
                 model.newAsteroid();
                 neuerAsteroid=0;
             }
             System.out.println(neuerAsteroid);*/
+            if(gedrueckt){
+                if(bewstaerke<20)
+                    bewstaerke =bewstaerke+0.5f;}
+            if (bewstaerke>0){
+                bewstaerke = bewstaerke-0.15f;
+            if(bewstaerke<0){
+                bewstaerke=0;
+            }
+            }
+
+                model.raumschiff.move(bewstaerke);
+            model.asteroid.move();
             model.raumschiff.rotate(rotationAngle);
             model.asteroid.move();
 
             //Asteroid kollidiert mit dem Spaceship
-            if( model.asteroid.collision(model.raumschiff) ) {
-                Log.v(TAG, "Asteroid collides with Spaceship");
-                spaceshipExplosion = MediaPlayer.create(context, R.raw.explosion);
-                model.init();
-                spaceshipExplosion.start();
-                screen.score = 0;
-            }
 
             screen.invalidate();
 
@@ -115,11 +137,18 @@ public class Controller extends Activity {
                 Log.d(TAG,"X-Position" + motionEvent.getX() + "Y-Position" + motionEvent.getY());
                 if(motionEvent.getAction() == MotionEvent.ACTION_DOWN){
                     if(motionEvent.getX() < (view.getWidth()/2)) {
-                        //TODO: hier Methode für Beschleunigung aufrufen
+                        gedrueckt = true;
+
+
                     } else {
+
                         model.raumschiff.fire();
-                        laserShot.start();
                     }
+                    return true;
+                }
+                else if(motionEvent.getAction() == MotionEvent.ACTION_UP){
+                    Log.d(TAG, "onTouch: UPUPUP");
+                    gedrueckt = false;
                     return true;
                 }
                 return false;

@@ -1,5 +1,7 @@
 package com.example.androidstudio.asteroids;
 
+import android.widget.Button;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
@@ -11,6 +13,8 @@ public class Model {
 
     public SpaceShip raumschiff;
     public Asteroid asteroid;
+
+    public boolean bewegung;
     Random rdm = new Random();
 
     public static final float ticDurationS = 0.01f;
@@ -28,14 +32,26 @@ public class Model {
 
     public void init() {
         raumschiff = new SpaceShip(width /2, height /2, this);
-        asteroid = new Asteroid(500f, 55f, -90f, -50f, this);
+        float rdmbreite = rdm.nextInt(width);
+        float rdmhoehe = rdm.nextInt(height);
+        while(Math.abs(rdmbreite-raumschiff.x)<20){
+            rdmbreite = rdm.nextInt(width);}
+        while(Math.abs(rdmhoehe-raumschiff.y)<20){
+            rdmhoehe = rdm.nextInt(height);}
+        asteroid = new Asteroid(rdmbreite, rdmhoehe, rdm.nextInt(360), -90f, this);
 
     }
 
     public void spawnAsteroid(){
-        asteroid=new Asteroid(rdm.nextInt(width), rdm.nextInt(height), height /4, -90f, this);
-
+        float rdmbreite = rdm.nextInt(width);
+        float rdmhoehe = rdm.nextInt(height);
+        while(Math.abs(rdmbreite-raumschiff.x)<20){
+            rdmbreite = rdm.nextInt(width);}
+        while(Math.abs(rdmhoehe-raumschiff.y)<20){
+            rdmhoehe = rdm.nextInt(height);}
+        asteroid = new Asteroid(rdmbreite, rdmhoehe, rdm.nextInt(360), -90f, this);
     }
+
     /*public void newAsteroid(){
             Asteroid as = new Asteroid(rdm.nextInt(width), rdm.nextInt(height), height /4, -90f, this);
             arAsteroids.add(as);
