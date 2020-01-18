@@ -1,5 +1,6 @@
 package com.example.androidstudio.asteroids;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -32,6 +33,13 @@ public class Controller extends Activity {
 
     Context context =this;
 
+    //Gyro Stuff
+    //Kalibiert den Gyrosensor bei Appstart so dass die momentane Ausrochtung 0 beträgt
+    float gyroNull = 0;
+    //Rotationsparameter der an die Model Klasse übergeben wird
+    float rotationAngle = 1f;
+    //Legt die Rotationsgeschwindigkeit fest
+    final static int rotationSensitivity = 20;
 
 
     private Screen screen;
@@ -63,7 +71,7 @@ public class Controller extends Activity {
                 neuerAsteroid=0;
             }
             System.out.println(neuerAsteroid);*/
-            model.raumschiff.rotate(1f);
+            model.raumschiff.rotate(rotationAngle);
             model.asteroid.move();
 
             //Asteroid kollidiert mit dem Spaceship
@@ -84,10 +92,10 @@ public class Controller extends Activity {
         }
     };
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
 
         final MediaPlayer laserShot = MediaPlayer.create(this, R.raw.lasershot);
 
@@ -142,7 +150,18 @@ public class Controller extends Activity {
                 for(int i = 0; i < 3; i++) {
                     orientations[i] = (float)(Math.toDegrees(orientations[i]));
                 }
-                Log.d("dbg",Float.toString(orientations[0]));
+
+                //Rotationsparameter entspricht der Z Achse
+                float rotation = orientations[2];
+
+                //Setzt den Kalibierungswert beim ersten Aufruf
+                if (gyroNull == 0) {
+                    gyroNull = rotation;
+                }
+                //Setzt den Rotierungsparameter --> Multiplizier mit -1 damit die Drehung richtig rum erfolgt
+                rotationAngle = ((gyroNull - rotation)/rotationSensitivity)*(-1);
+
+                Log.d("dbg",Float.toString(rotation));
             }
 
             @Override
