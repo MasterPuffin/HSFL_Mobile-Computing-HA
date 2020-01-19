@@ -32,6 +32,8 @@ public class Controller extends Activity {
     static MediaPlayer spaceshipExplosion;
     static MediaPlayer asteroidExplosion;
 
+
+
     Context context =this;
 
     //Gyro Stuff
@@ -72,15 +74,15 @@ public class Controller extends Activity {
             }
             for (Asteroid ast: model.arAsteroids)
             {
-                ast.move();
+                    ast.move();
+            }
+            if(model.raumschiff.collision(model.asteroid)) {
                 Log.v(TAG, "Asteroid collides with Spaceship");
                 spaceshipExplosion = MediaPlayer.create(context, R.raw.explosion);
-                model.init();
                 spaceshipExplosion.start();
+                model.init();
                 screen.score = 0;
-
-                    //Bullet remove?
-                }
+            }
 
             /*neuerAsteroid=neuerAsteroid+0.01;
             if(neuerAsteroid>=5){
@@ -98,7 +100,7 @@ public class Controller extends Activity {
             }
             }
 
-                model.raumschiff.move(bewstaerke);
+            model.raumschiff.move(bewstaerke);
             model.asteroid.move();
             model.raumschiff.rotate(rotationAngle);
             model.asteroid.move();
@@ -120,6 +122,12 @@ public class Controller extends Activity {
         super.onCreate(savedInstanceState);
 
         final MediaPlayer laserShot = MediaPlayer.create(this, R.raw.lasershot);
+        final MediaPlayer rocketSound = MediaPlayer.create(this, R.raw.rocketsound);
+        final MediaPlayer backgroundMusic = MediaPlayer.create(this, R.raw.background);
+
+        backgroundMusic.setLooping(true);
+        backgroundMusic.setVolume(0.3f, 0.3f);
+        backgroundMusic.start();
 
         model = new Model();
 
@@ -138,17 +146,22 @@ public class Controller extends Activity {
                 if(motionEvent.getAction() == MotionEvent.ACTION_DOWN){
                     if(motionEvent.getX() < (view.getWidth()/2)) {
                         gedrueckt = true;
+                        rocketSound.start();
+                        rocketSound.setVolume(0.25f, 0.25f);
+                        rocketSound.setLooping(true);
 
 
                     } else {
 
                         model.raumschiff.fire();
+                        laserShot.start();
                     }
                     return true;
                 }
                 else if(motionEvent.getAction() == MotionEvent.ACTION_UP){
                     Log.d(TAG, "onTouch: UPUPUP");
                     gedrueckt = false;
+                    rocketSound.pause();
                     return true;
                 }
                 return false;
