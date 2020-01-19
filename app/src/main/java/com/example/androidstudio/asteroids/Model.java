@@ -9,8 +9,6 @@ import java.util.Random;
 
 public class Model {
 
-
-
     public SpaceShip raumschiff;
     public Asteroid asteroid;
 
@@ -41,7 +39,6 @@ public class Model {
         asteroid = new Asteroid(rdmbreite, rdmhoehe, rdm.nextInt(360), -90f, this);
 
     }
-
     public void spawnAsteroid(){
         float rdmbreite = rdm.nextInt(width);
         float rdmhoehe = rdm.nextInt(height);

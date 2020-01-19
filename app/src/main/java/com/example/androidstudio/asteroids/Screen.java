@@ -43,8 +43,9 @@ public class Screen extends View {
         matCanvas.setScale(yFac, yFac);
         canvas.concat(matCanvas);
 
+
         pin.setTextSize(100);
-        canvas.drawText(Integer.toString(score), getHeight()/6, getWidth()/4, pin);
+        canvas.drawText(Integer.toString(score), 100, 100, pin);
         model.raumschiff.draw(canvas);
 
         model.asteroid.draw(canvas);

@@ -149,6 +149,7 @@ public class Controller extends Activity {
                         rocketSound.start();
                         rocketSound.setVolume(0.25f, 0.25f);
                         rocketSound.setLooping(true);
+                        SpaceShip.setClassAttributes(BitmapFactory.decodeResource(getResources(), R.drawable.spaceship_flame_32_25));
 
 
                     } else {
@@ -162,6 +163,7 @@ public class Controller extends Activity {
                     Log.d(TAG, "onTouch: UPUPUP");
                     gedrueckt = false;
                     rocketSound.pause();
+                    SpaceShip.setClassAttributes(BitmapFactory.decodeResource(getResources(), R.drawable.spaceship_32_25));
                     return true;
                 }
                 return false;
