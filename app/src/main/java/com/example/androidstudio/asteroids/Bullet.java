@@ -8,7 +8,6 @@ import android.graphics.RectF;
 
 public class Bullet extends Moveable{
 
-    private static final String TAG = "fhflBullet";
     private static Bitmap bitmap;
 
     private int timeToLiveTics;

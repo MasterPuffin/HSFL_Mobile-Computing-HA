@@ -26,7 +26,7 @@ import android.widget.Button;
 
 public class Controller extends Activity {
 
-    private static final String TAG = "hsflController";
+    private static final String TAG = "Controller";
 
 
     static MediaPlayer spaceshipExplosion;
