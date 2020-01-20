@@ -3,7 +3,7 @@ package com.example.androidstudio.asteroids;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
-public class Asteroid extends Moveable{
+public class Asteroid extends Moveable {
 
     private static Bitmap bitmap;
 
@@ -14,5 +14,4 @@ public class Asteroid extends Moveable{
     public static void setClassAttributes(Bitmap bitmap) {
         Asteroid.bitmap = bitmap;
     }
-
 }

@@ -13,7 +13,6 @@ import android.graphics.drawable.RotateDrawable;
 import android.util.Log;
 
 
-
 public class Moveable extends Drawable {
 
 
@@ -41,11 +40,11 @@ public class Moveable extends Drawable {
 
         float pixelPerTimeTic = speed * stTicDurationS;
 
-        xSpeed = (float) Math.cos((double) direction*Math.PI/180f) * pixelPerTimeTic;
-        ySpeed = (float) Math.sin((double) direction*Math.PI/180f) * pixelPerTimeTic;
+        xSpeed = (float) Math.cos((double) direction * Math.PI / 180f) * pixelPerTimeTic;
+        ySpeed = (float) Math.sin((double) direction * Math.PI / 180f) * pixelPerTimeTic;
 
-        centerX = bitmap.getWidth()/2;
-        centerY = bitmap.getHeight()/2;
+        centerX = bitmap.getWidth() / 2;
+        centerY = bitmap.getHeight() / 2;
 
         paint.setStyle(Paint.Style.FILL);
         paint.setColor(Color.WHITE);
@@ -58,8 +57,8 @@ public class Moveable extends Drawable {
     }
 
     public void move() {
-        x = ( x + xSpeed + stScreenWidth) % stScreenWidth;
-        y = ( y + ySpeed + stScreenHeight) % stScreenHeight;
+        x = (x + xSpeed + stScreenWidth) % stScreenWidth;
+        y = (y + ySpeed + stScreenHeight) % stScreenHeight;
     }
 
     public boolean isAlive() {
@@ -70,11 +69,10 @@ public class Moveable extends Drawable {
         RectF rec, rec2;
         rec = moveable.getRect();
         rec2 = getRect();
-        boolean intersec =  rec.intersect(rec2);
-        if ( intersec ){
+        boolean intersec = rec.intersect(rec2);
+        if (intersec) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
@@ -85,18 +83,20 @@ public class Moveable extends Drawable {
     }
 
     @Override
-    public void setAlpha(int a){ }
+    public void setAlpha(int a) {
+    }
 
     @Override
-    public void setColorFilter(ColorFilter a){  }
+    public void setColorFilter(ColorFilter a) {
+    }
 
     @Override
-    public int getOpacity(){
+    public int getOpacity() {
         return PixelFormat.OPAQUE;
     }
 
     @Override
-    public void draw (Canvas canvas){
+    public void draw(Canvas canvas) {
         canvas.drawBitmap(bitmap, x, y, null);
     }
 }

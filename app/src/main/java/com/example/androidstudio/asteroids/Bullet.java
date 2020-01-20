@@ -6,21 +6,20 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 
 
-public class Bullet extends Moveable{
+public class Bullet extends Moveable {
 
     private static Bitmap bitmap;
-
     private int timeToLiveTics;
 
     public Bullet(float xStart, float yStart, float direction, float speed, float timeToLiveS) {
-        super(xStart - Bullet.bitmap.getWidth()/2, yStart - Bullet.bitmap.getHeight()/2, direction, speed, Bullet.bitmap);
+        super(xStart - Bullet.bitmap.getWidth() / 2, yStart - Bullet.bitmap.getHeight() / 2, direction, speed, Bullet.bitmap);
 
-        this.timeToLiveTics = (int) (timeToLiveS/Model.ticDurationS);
+        this.timeToLiveTics = (int) (timeToLiveS / Model.ticDurationS);
     }
 
     public static void setClassAttributes(Bitmap bitmap) {
         Bullet.bitmap = bitmap;
-     }
+    }
 
     @Override
     public void move() {
