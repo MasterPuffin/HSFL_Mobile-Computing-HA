@@ -26,30 +26,24 @@ import android.widget.Button;
 
 public class Controller extends Activity {
 
-    private static final String TAG = "Controller";
-
-
-    static MediaPlayer spaceshipExplosion;
-    static MediaPlayer asteroidExplosion;
-
-
-
-    Context context =this;
-
-    //Gyro Stuff
-    //Kalibiert den Gyrosensor bei Appstart so dass die momentane Ausrochtung 0 beträgt
-    float gyroNull = 0;
-    //Rotationsparameter der an die Model Klasse übergeben wird
-    float rotationAngle = 1f;
     //Legt die Rotationsgeschwindigkeit fest
     final static int rotationSensitivity = 20;
+    private static final String TAG = "Controller";
+    static MediaPlayer spaceshipExplosion;
+    static MediaPlayer asteroidExplosion;
     public boolean gedrueckt;
     public float bewstaerke;
 
-    private Screen screen;
-//    private double neuerAsteroid =0;
+    //private double neuerAsteroid =0;
     public Model model;
+    Context context =this;
 
+    //Gyro Stuff
+    //Kalibiert den Gyrosensor bei Appstart so dass die momentane Ausrichtung 0 beträgt
+    float gyroNull = 0;
+    //Rotationsparameter der an die Model Klasse übergeben wird
+    float rotationAngle = 1f;
+    private Screen screen;
     private CountDownTimer timer = new CountDownTimer(Long.MAX_VALUE, (int)(1000.0*Model.ticDurationS)) {
 
         public void onTick(long millisUntilFinished) {
@@ -101,22 +95,14 @@ public class Controller extends Activity {
                 screen.score = 0;
             }
 
-
-
-            /*neuerAsteroid=neuerAsteroid+0.01;
-            if(neuerAsteroid>=5){
-                model.newAsteroid();
-                neuerAsteroid=0;
-            }
-            System.out.println(neuerAsteroid);*/
             if(gedrueckt){
                 if(bewstaerke<20)
                     bewstaerke =bewstaerke+0.5f;}
             if (bewstaerke>0){
                 bewstaerke = bewstaerke-0.15f;
-            if(bewstaerke<0){
-                bewstaerke=0;
-            }
+                if(bewstaerke<0){
+                    bewstaerke=0;
+                }
             }
             if (model.asteroid2!=null){
                 model.asteroid2.move();
@@ -145,18 +131,26 @@ public class Controller extends Activity {
             model.raumschiff.move(bewstaerke);
             model.asteroid.move();
             model.raumschiff.rotate(rotationAngle);
-
-
-
-
             screen.invalidate();
-
         }
-
         public void onFinish() {
-
         }
     };
+
+    // Von Stackoverflow (https://stackoverflow.com/questions/33696488/getting-bitmap-from-vector-drawable/51742167)
+    public static Bitmap getBitmapFromVectorDrawable(Context context, int drawableId) {
+        Drawable drawable = ContextCompat.getDrawable(context, drawableId);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            drawable = (DrawableCompat.wrap(drawable)).mutate();
+        }
+
+        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+
+        return bitmap;
+    }
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -192,10 +186,7 @@ public class Controller extends Activity {
                         rocketSound.setVolume(0.25f, 0.25f);
                         rocketSound.setLooping(true);
                         SpaceShip.setClassAttributes(BitmapFactory.decodeResource(getResources(), R.drawable.spaceship_flame_32_25));
-
-
                     } else {
-
                         model.raumschiff.fire();
                         laserShot.start();
                     }
@@ -278,7 +269,6 @@ public class Controller extends Activity {
 
             Asteroid.setClassAttributes(BitmapFactory.decodeResource(getResources(), R.drawable.asteroid25_32));
 
-
             model.init();
             timer.start();
         }
@@ -304,20 +294,5 @@ public class Controller extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    // aus stackoverflow
-    public static Bitmap getBitmapFromVectorDrawable(Context context, int drawableId) {
-        Drawable drawable = ContextCompat.getDrawable(context, drawableId);
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            drawable = (DrawableCompat.wrap(drawable)).mutate();
-        }
-
-        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bitmap);
-        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
-        drawable.draw(canvas);
-
-        return bitmap;
     }
 }
