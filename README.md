@@ -1,2 +1,0 @@
-# MobComp
-Mobile Computing HA
