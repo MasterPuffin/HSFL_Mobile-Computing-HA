@@ -11,9 +11,8 @@ public class Model {
 
     public SpaceShip raumschiff;
     public Asteroid asteroid;
-    public Asteroid asteroid2;
-    public Asteroid asteroid3;
 
+    public boolean bewegung;
     Random rdm = new Random();
 
     public static final float ticDurationS = 0.01f;
@@ -37,61 +36,26 @@ public class Model {
             rdmbreite = rdm.nextInt(width);}
         while(Math.abs(rdmhoehe-raumschiff.y)<20){
             rdmhoehe = rdm.nextInt(height);}
-        asteroid = new Asteroid(rdmbreite, rdmhoehe, rdm.nextInt(360), -10, this);
+        asteroid = new Asteroid(rdmbreite, rdmhoehe, rdm.nextInt(360), -90f, this);
 
     }
-    public void spawnAsteroid(int score){
-
+    public void spawnAsteroid(){
         float rdmbreite = rdm.nextInt(width);
         float rdmhoehe = rdm.nextInt(height);
         while(Math.abs(rdmbreite-raumschiff.x)<20){
             rdmbreite = rdm.nextInt(width);}
         while(Math.abs(rdmhoehe-raumschiff.y)<20){
             rdmhoehe = rdm.nextInt(height);}
-
-            asteroid = new Asteroid(rdmbreite, rdmhoehe, rdm.nextInt(360), -score*20, this);
-
-       if(score==5){
-            asteroid2 = new Asteroid(100, rdmhoehe, rdm.nextInt(360), -score*20, this);
-        }
-        if (score==10){
-            asteroid3 = new Asteroid(100, rdmhoehe, rdm.nextInt(360), -score*20, this);
-        }
-
-    }
-    public void spawnAsteroid2(int score){
-        float rdmbreite = rdm.nextInt(width);
-        float rdmhoehe = rdm.nextInt(height);
-        while (Math.abs(rdmbreite - raumschiff.x) < 20) {
-            rdmbreite = rdm.nextInt(width);
-        }
-        while (Math.abs(rdmhoehe - raumschiff.y) < 20) {
-            rdmhoehe = rdm.nextInt(height);
-        }
-
-            asteroid2 = new Asteroid(rdmbreite, rdmhoehe, rdm.nextInt(360), -score*20, this);
-
-
-        if (score==10){
-            asteroid3 = new Asteroid(100, rdmhoehe, rdm.nextInt(360), -score*20, this);
-        }
-
-
-    }
-    public void spawnAsteroid3(int score){
-        float rdmbreite = rdm.nextInt(width);
-        float rdmhoehe = rdm.nextInt(height);
-        while(Math.abs(rdmbreite-raumschiff.x)<20){
-            rdmbreite = rdm.nextInt(width);}
-        while(Math.abs(rdmhoehe-raumschiff.y)<20){
-            rdmhoehe = rdm.nextInt(height);}
-
-            asteroid3 = new Asteroid(rdmbreite, rdmhoehe, rdm.nextInt(360), -score*20, this);
-
-
-
+        asteroid = new Asteroid(rdmbreite, rdmhoehe, rdm.nextInt(360), -90f, this);
     }
 
+    /*public void newAsteroid(){
+            Asteroid as = new Asteroid(rdm.nextInt(width), rdm.nextInt(height), height /4, -90f, this);
+            arAsteroids.add(as);
+            as.move();
+            System.out.println("ok");
+
+        ;}*/
 
     public void add(Bullet bullet) {  // wird von SpaceShip gefuellt -> ## Listener ?
         arBullets.add(bullet);
