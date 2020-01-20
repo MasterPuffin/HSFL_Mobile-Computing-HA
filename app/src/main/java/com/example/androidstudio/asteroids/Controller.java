@@ -64,8 +64,12 @@ public class Controller extends Activity {
                      asteroidExplosion = MediaPlayer.create(context, R.raw.explosion_asteroid);
                     asteroidExplosion.start();
                     screen.score++;
-                    model.spawnAsteroid(screen.score);
+                    model.spawnAsteroid();
 
+
+
+
+<<<<<<< HEAD
                     //Bullet remove?
                 }
                 if (model.asteroid2!=null){
@@ -84,6 +88,8 @@ public class Controller extends Activity {
                         asteroidExplosion.start();
                         screen.score++;
                         model.spawnAsteroid3(screen.score);}
+=======
+>>>>>>> parent of ab6bde0... Mehr Asteroiden und werden schneller mit mehr Score
                     //Bullet remove?
                 }
             }
@@ -95,13 +101,9 @@ public class Controller extends Activity {
                 Log.v(TAG, "Asteroid collides with Spaceship");
                 spaceshipExplosion = MediaPlayer.create(context, R.raw.explosion);
                 spaceshipExplosion.start();
-                model.asteroid2 = null;
-                model.asteroid3 = null;
                 model.init();
                 screen.score = 0;
             }
-
-
 
             /*neuerAsteroid=neuerAsteroid+0.01;
             if(neuerAsteroid>=5){
@@ -118,36 +120,13 @@ public class Controller extends Activity {
                 bewstaerke=0;
             }
             }
-            if (model.asteroid2!=null){
-                model.asteroid2.move();
-                if(model.raumschiff.collision(model.asteroid2)) {
-                    Log.v(TAG, "Asteroid collides with Spaceship");
-                    spaceshipExplosion = MediaPlayer.create(context, R.raw.explosion);
-                    spaceshipExplosion.start();
-                    model.asteroid2 = null;
-                    model.asteroid3 = null;
-                    model.init();
-                    screen.score = 0;
-                }
-            }
-            if (model.asteroid3!=null){
-                model.asteroid3.move();
-                if(model.raumschiff.collision(model.asteroid3)) {
-                    Log.v(TAG, "Asteroid collides with Spaceship");
-                    spaceshipExplosion = MediaPlayer.create(context, R.raw.explosion);
-                    spaceshipExplosion.start();
-                    model.asteroid2 = null;
-                    model.asteroid3 = null;
-                    model.init();
-                    screen.score = 0;
-                }
-            }
+
             model.raumschiff.move(bewstaerke);
             model.asteroid.move();
             model.raumschiff.rotate(rotationAngle);
+            model.asteroid.move();
 
-
-
+            //Asteroid kollidiert mit dem Spaceship
 
             screen.invalidate();
 
