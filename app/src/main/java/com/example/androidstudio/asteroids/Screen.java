@@ -49,12 +49,7 @@ public class Screen extends View {
         model.raumschiff.draw(canvas);
 
         model.asteroid.draw(canvas);
-        if(model.asteroid2!=null){
-            model.asteroid2.draw(canvas);
-        }
-        if(model.asteroid3!=null){
-            model.asteroid3.draw(canvas);
-        }
+
         for (Bullet bullet: model.arBullets)
         {
             bullet.draw(canvas);
