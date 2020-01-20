@@ -8,7 +8,12 @@ public class Asteroid extends Moveable {
     private static Bitmap bitmap;
 
     public Asteroid(float xStart, float yStart, float direction, float speed, Model model) {
-        super(xStart, yStart, direction, speed, Asteroid.bitmap);
+        super(xStart, yStart, direction, speed);
+        super.init(Asteroid.bitmap);
+    }
+
+    public void init() {
+        super.init(Asteroid.bitmap);
     }
 
     public static void setClassAttributes(Bitmap bitmap) {

@@ -13,7 +13,13 @@ public class SpaceShip extends Moveable {
     private float direction;
 
     public SpaceShip(float xStart, float yStart, Model model) {
-        super(xStart, yStart, 0f, 0f, SpaceShip.bitmap);
+        super(xStart, yStart, 0f, 0f);
+        super.init(SpaceShip.bitmap);
+        this.model = model;
+    }
+
+    public void init(Model model) {
+        super.init(SpaceShip.bitmap);
         this.model = model;
     }
 

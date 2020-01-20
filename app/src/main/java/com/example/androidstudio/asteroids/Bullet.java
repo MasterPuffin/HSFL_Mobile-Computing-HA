@@ -12,9 +12,15 @@ public class Bullet extends Moveable {
     private int timeToLiveTics;
 
     public Bullet(float xStart, float yStart, float direction, float speed, float timeToLiveS) {
-        super(xStart - Bullet.bitmap.getWidth() / 2, yStart - Bullet.bitmap.getHeight() / 2, direction, speed, Bullet.bitmap);
+        super(xStart - Bullet.bitmap.getWidth() / 2, yStart - Bullet.bitmap.getHeight() / 2, direction, speed);
+
+        super.init(Bullet.bitmap);
 
         this.timeToLiveTics = (int) (timeToLiveS / Model.ticDurationS);
+    }
+
+    public void init() {
+        super.init(Bullet.bitmap);
     }
 
     public static void setClassAttributes(Bitmap bitmap) {
@@ -31,5 +37,7 @@ public class Bullet extends Moveable {
             isAlive = false;
         }
     }
+
+
 
 }

@@ -31,6 +31,7 @@ public class Controller extends Activity {
     private static final String TAG = "Controller";
     static MediaPlayer spaceshipExplosion;
     static MediaPlayer asteroidExplosion;
+    static MediaPlayer backgroundMusic, laserShot, rocketSound;
     public boolean gedrueckt;
     public float bewstaerke;
 
@@ -157,15 +158,15 @@ public class Controller extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        final MediaPlayer laserShot = MediaPlayer.create(this, R.raw.lasershot);
-        final MediaPlayer rocketSound = MediaPlayer.create(this, R.raw.rocketsound);
-        final MediaPlayer backgroundMusic = MediaPlayer.create(this, R.raw.background);
+        laserShot = MediaPlayer.create(this, R.raw.lasershot);
+        rocketSound = MediaPlayer.create(this, R.raw.rocketsound);
+        backgroundMusic = MediaPlayer.create(this, R.raw.background);
 
         backgroundMusic.setLooping(true);
         backgroundMusic.setVolume(0.3f, 0.3f);
         backgroundMusic.start();
 
-        model = new Model();
+        model = new Model(this);
 
         screen = new Screen( getApplicationContext() );
         screen.setModel(model);
@@ -279,6 +280,27 @@ public class Controller extends Activity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+    @Override
+    protected void onResume() {     //Persistenz
+        super.onResume();
+        Log.d(TAG, "onResume()");
+
+
+        if ( model.initialised) {
+            timer.start();
+        }
+    }
+
+    @Override
+    protected void onPause() {      //Persistenz
+        super.onPause();
+        Log.d(TAG, "onPause()");
+
+
+
+        timer.cancel();
+        model.save();   // hier das Abspeichern/Serialisieren plazieren !!!!
     }
 
     @Override

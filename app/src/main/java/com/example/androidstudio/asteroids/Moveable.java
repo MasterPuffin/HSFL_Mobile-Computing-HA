@@ -22,6 +22,8 @@ public class Moveable extends Drawable {
 
     private Bitmap bitmap;
     protected float centerX, centerY;
+    protected float speed;
+    protected float direction;
 
     protected float x = 0f;
     protected float y = 0f;
@@ -31,21 +33,28 @@ public class Moveable extends Drawable {
 
     protected Paint paint = new Paint();
 
-    public Moveable(float xStart, float yStart, float direction, float speed, Bitmap bitmap) {
+    public Moveable(float xStart, float yStart, float direction, float speed) {
+        // Test, ob die Klassenattribute initialisiert sind:
+        float test = stTicDurationS;     // sollte eine exception liefern, falls die Initialisierung
+        // via setClassAttributes() nicht erfolgte
+        this.x = xStart;
+        this.y = yStart;
+        this.direction = direction;
+        this.speed = speed;
+    }
 
-        x = xStart;
-        y = yStart;
-
+    public void init( Bitmap bitmap ) {
+        // initialisiert alle (weiteren) transienten Attribute
         this.bitmap = bitmap;
 
         float pixelPerTimeTic = speed * stTicDurationS;
+        xSpeed = (float) Math.cos((double) direction*Math.PI/180f) * pixelPerTimeTic;
+        ySpeed = (float) Math.sin((double) direction*Math.PI/180f) * pixelPerTimeTic;  // Achtung: y waechst in neg. Richtung
 
-        xSpeed = (float) Math.cos((double) direction * Math.PI / 180f) * pixelPerTimeTic;
-        ySpeed = (float) Math.sin((double) direction * Math.PI / 180f) * pixelPerTimeTic;
+        centerX = bitmap.getWidth()/2;
+        centerY = bitmap.getHeight()/2;
 
-        centerX = bitmap.getWidth() / 2;
-        centerY = bitmap.getHeight() / 2;
-
+        paint = new Paint();
         paint.setStyle(Paint.Style.FILL);
         paint.setColor(Color.WHITE);
     }
