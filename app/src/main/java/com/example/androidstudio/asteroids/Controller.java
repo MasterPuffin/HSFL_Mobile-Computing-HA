@@ -69,28 +69,7 @@ public class Controller extends Activity {
 
 
 
-<<<<<<< HEAD
-                    //Bullet remove?
-                }
-                if (model.asteroid2!=null){
-                if(bullet.collision(model.asteroid2)){
-                Log.v(TAG, "Bullet collides with Asteroid");
-                asteroidExplosion = MediaPlayer.create(context, R.raw.explosion_asteroid);
-                asteroidExplosion.start();
-                screen.score++;
-                model.spawnAsteroid2(screen.score);}
-                //Bullet remove?
-            }
-                if (model.asteroid3!=null){
-                    if(bullet.collision(model.asteroid3)){
-                        Log.v(TAG, "Bullet collides with Asteroid");
-                        asteroidExplosion = MediaPlayer.create(context, R.raw.explosion_asteroid);
-                        asteroidExplosion.start();
-                        screen.score++;
-                        model.spawnAsteroid3(screen.score);}
-=======
->>>>>>> parent of ab6bde0... Mehr Asteroiden und werden schneller mit mehr Score
-                    //Bullet remove?
+
                 }
             }
             for (Asteroid ast: model.arAsteroids)
