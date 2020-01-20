@@ -9,7 +9,7 @@ import android.util.Log;
 
 public class SpaceShip extends Moveable{
 
-
+    private static final String TAG = "hsflSpaceShip";
 
     private static Bitmap bitmap;
 

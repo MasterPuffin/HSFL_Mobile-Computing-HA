@@ -16,7 +16,7 @@ import android.util.Log;
 
 public class Moveable extends Drawable {
 
-
+    private static final String TAG = "hsflMoveable";
     private static float stTicDurationS;
     private static int stScreenWidth;
     private static int stScreenHeight;
@@ -42,7 +42,7 @@ public class Moveable extends Drawable {
         float pixelPerTimeTic = speed * stTicDurationS;
 
         xSpeed = (float) Math.cos((double) direction*Math.PI/180f) * pixelPerTimeTic;
-        ySpeed = (float) Math.sin((double) direction*Math.PI/180f) * pixelPerTimeTic;
+        ySpeed = (float) Math.sin((double) direction*Math.PI/180f) * pixelPerTimeTic;  // Achtung: y waechst in neg. Richtung
 
         centerX = bitmap.getWidth()/2;
         centerY = bitmap.getHeight()/2;
