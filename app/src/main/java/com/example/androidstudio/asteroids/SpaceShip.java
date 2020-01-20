@@ -9,7 +9,7 @@ import android.util.Log;
 public class SpaceShip extends Moveable {
 
     private static Bitmap bitmap;
-    private Model model
+    private Model model;
     private float direction;
 
     public SpaceShip(float xStart, float yStart, Model model) {
